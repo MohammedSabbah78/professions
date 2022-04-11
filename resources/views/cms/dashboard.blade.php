@@ -425,7 +425,7 @@
                                     </span></td>
                                 <td>{{$profession->subCategory->title}}</td>
                                 <td>{{$profession->subCategory->category->title}}</td>
-                                <td>{{$profession->id}}</td>
+                                <td>{{$profession->specialization}}</td>
                             </tr>
                             @endforeach
 

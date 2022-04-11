@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavoriteProfessionController;
 use App\Http\Controllers\MainPageController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\RoleController;
@@ -65,6 +66,7 @@ Route::prefix('cms/admin')->middleware(['auth:admin', 'verified'])->group(functi
 Route::prefix('cms/admin')->middleware(['auth:admin', 'verified'])->group(function () {
 
 
+    Route::get('notifications', [NotificationController::class, 'index'])->name('user.notifications');
 
     Route::post('roles/permissions', [RoleController::class, 'updateRolePermission']);
     Route::get('users/{user}/permissions/edit', [UserController::class, 'editUserPermission'])->name('user.edit-permissions');

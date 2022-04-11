@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Mail\AdminSendNewPasswordEmail;
 use App\Models\Admin;
+use App\Notifications\NewAdminNotification;
+use App\Notifications\NewUserNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,9 +84,15 @@ class AdminController extends Controller
             if ($isSaved) {
                 $admin->assignRole(Role::findOrFail($request->input('role_id')));
                 Mail::to($admin)->send(new AdminSendNewPasswordEmail($admin, $randomPassword));
+
+                $adminNotification = Admin::whereHas('roles', function ($query) {
+                    $query->where('name', '=', 'Super-Admin');
+                })->get();
+
+                Notification::send($adminNotification, new NewAdminNotification($admin));
             }
             return response()->json(
-                ['message' => $isSaved ? 'Created' : 'Failed'],
+                ['message' => $isSaved ? 'Created..Send Password In Email' : 'Failed'],
                 $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST
             );
         } else {

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Notifications\NewRoleNotification;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleController extends Controller
@@ -57,6 +60,17 @@ class RoleController extends Controller
             $role->name = $request->input('name');
             $role->guard_name = $request->input('guard_name');
             $isSaved = $role->save();
+
+            if ($isSaved) {
+
+                $admin = Admin::whereHas('roles', function ($query) {
+                    $query->where('name', '=', 'Super-Admin');
+                })->get();
+
+                Notification::send($admin, new NewRoleNotification($role));
+            }
+
+
             return response()->json(
                 ['message' => $isSaved ? 'Created' : 'Failed'],
                 $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Profession;
 use App\Models\SubCategory;
+use App\Notifications\NewProfessionNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -90,9 +93,13 @@ class ProfessionController extends Controller
             }
 
             $isSaved = $profession->save();
-            // if ($isSaved) {
-            //     Mail::to($category)->send(new categorySendNewPasswordEmail($category, $randomPassword));
-            // }
+            if ($isSaved) {
+                $admin = Admin::whereHas('roles', function ($query) {
+                    $query->where('name', '=', 'Super-Admin');
+                })->get();
+
+                Notification::send($admin, new NewProfessionNotification($profession));
+            }
             return response()->json(
                 ['message' => $isSaved ? 'Created' : 'Failed'],
                 $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST
@@ -180,6 +187,7 @@ class ProfessionController extends Controller
                 $profession->image = 'images/' . $imageName;
             }
             $isSaved = $profession->save();
+
             return response()->json(
                 ['message' => $isSaved ? 'Updated' : 'Failed'],
                 $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST

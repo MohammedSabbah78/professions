@@ -71,12 +71,12 @@ class FavoriteProfessionPolicy
      */
     public function delete($user, FavoriteProfession $favoriteProfession)
     {
-        return $user->hasPermissionTo('Delete-FavoriteProfession')
+        return $user->hasPermissionTo('Delete-FavoriteProfession') && $user->id == $favoriteProfession->user_id
             ? $this->allow()
             : $this->deny('Don\'t have Permission ', 403);
     }
 
-    /**
+    /** 
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\Admin  $admin

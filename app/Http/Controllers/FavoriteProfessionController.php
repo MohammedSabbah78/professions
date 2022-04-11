@@ -21,10 +21,14 @@ class FavoriteProfessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $favoriteProfessions = FavoriteProfession::with(['profession'])->get();
-        return response()->view('cms.profession.favoriteProfessions.index', ['favoriteProfessions' => $favoriteProfessions]);
+        if (auth('user')->check()) {
+            // $favoriteProfessions = FavoriteProfession::with(['profession'])->get();
+            $favoriteProfessions = $request->user()->favoriteProfessions;
+
+            return response()->view('cms.profession.favoriteProfessions.index', ['favoriteProfessions' => $favoriteProfessions]);
+        }
     }
 
     /**

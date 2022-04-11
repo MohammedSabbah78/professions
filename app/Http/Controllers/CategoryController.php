@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Notifications\NewCategoryNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -68,9 +71,14 @@ class CategoryController extends Controller
             }
 
             $isSaved = $category->save();
-            // if ($isSaved) {
-            //     Mail::to($category)->send(new categorySendNewPasswordEmail($category, $randomPassword));
-            // }
+            if ($isSaved) {
+
+                $admin = Admin::whereHas('roles', function ($query) {
+                    $query->where('name', '=', 'Super-Admin');
+                })->get();
+
+                Notification::send($admin, new NewCategoryNotification($category));
+            }
             return response()->json(
                 ['message' => $isSaved ? 'Created' : 'Failed'],
                 $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST

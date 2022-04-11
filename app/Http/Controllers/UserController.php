@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserSendNewPasswordEmail;
+use App\Models\Admin;
 use App\Models\User;
+use App\Notifications\NewUserNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 use Symfony\Component\HttpFoundation\Response;
@@ -77,9 +80,15 @@ class UserController extends Controller
             $isSaved = $user->save();
             if ($isSaved) {
                 Mail::to($user)->send(new UserSendNewPasswordEmail($user, $randomPassword));
+
+                $admin = Admin::whereHas('roles', function ($query) {
+
+                    $query->where('name', '=', 'Super-Admin');
+                })->get();
+                Notification::send($admin, new NewUserNotification($user));
             }
             return response()->json(
-                ['message' => $isSaved ? 'Created' : 'Failed'],
+                ['message' => $isSaved ? 'Created..Send Password In Email' : 'Failed'],
                 $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST
             );
         } else {
