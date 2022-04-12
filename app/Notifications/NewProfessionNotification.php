@@ -60,7 +60,7 @@ class NewProfessionNotification extends Notification
         return [
             //
             'title' => "New Profession Added",
-            'message' => "New Profession (" . $this->profession->name  . ")"  . " Added Via" . " Admin",
+            'message' => "New Profession (" . $this->profession->name  . ")" . " Added Via " . auth('admin')->user()->name,
         ];
     }
 }

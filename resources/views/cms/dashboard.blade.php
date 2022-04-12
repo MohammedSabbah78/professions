@@ -15,12 +15,13 @@
 
 
 <!-- Main content -->
-@hasrole('Super-Admin')
 
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
+        @canany(['Read-Users', 'Read-Categories', 'Read-SubCategories','Read-Professions'])
         <div class="row">
+            @can('Read-Categories')
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
@@ -37,6 +38,8 @@
                 </div>
             </div>
             <!-- ./col -->
+            @endcan
+            @can('Read-SubCategories')
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-danger">
@@ -53,7 +56,9 @@
                 </div>
             </div>
             <!-- ./col -->
+            @endcan
 
+            @can('Read-Professions')
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-success">
@@ -70,6 +75,9 @@
                 </div>
             </div>
             <!-- ./col -->
+            @endcan
+
+            @can('Read-Users')
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-warning">
@@ -86,9 +94,13 @@
                 </div>
             </div>
             <!-- ./col -->
+            @endcan
+
         </div>
         <!-- /.row -->
-        <!-- Main row -->
+        @endcanany
+
+        @can('Read-Users')
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -170,6 +182,10 @@
             </div>
             <!-- /.card-body -->
         </div>
+        @endcan
+
+
+        @can('Read-Admins')
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -224,6 +240,8 @@
             </div>
             <!-- /.card -->
         </div>
+        @endcan
+        @canany(['Read-Categories', 'Read-SubCategories'])
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -380,6 +398,8 @@
 
             </div><!-- /.container-fluid -->
         </section>
+        @endcanany
+        @can('Read-Professions')
         <div class="col-md-12">
             <div class="card table-responsive p-0">
                 <div class="card-header">
@@ -436,11 +456,11 @@
             </div>
             <!-- /.card -->
         </div>
+        @endcan
     </div>
 </section>
 <!-- /.content -->
 
-@endhasrole
 
 
 @endsection

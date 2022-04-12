@@ -60,7 +60,7 @@ class NewUserNotification extends Notification
         return [
             //
             'title' => "New User Added",
-            'message' => "New User (" . $this->user->name . ") Added Via" . " Admin",
+            'message' => "New User (" . $this->user->name . " Added Via " . auth('admin')->user()->name,
         ];
     }
 }

@@ -8,7 +8,7 @@
 @section('page_name','Favorite')
 @section('main_page','favorite professions')
 @section('small_page_name','professions')
-
+@can('Read-FavoriteProfessions')
 <section class="content">
     <div class="row">
         <div class="col-12">
@@ -87,6 +87,8 @@
 
     </div>
 </section>
+@endcan
+
 @endsection
 @section('styles')
 @endsection

@@ -61,7 +61,7 @@ class NewRoleNotification extends Notification
         return [
             //
             'title' => "New Role Added",
-            'message' => "New Role (" . $this->role->name  . ")"  . " Added Via" . " Admin",
+            'message' => "New Role (" . $this->role->name  . ")"  . " Added Via " . auth('admin')->user()->name,
         ];
     }
 }

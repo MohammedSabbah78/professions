@@ -275,6 +275,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
             @endcanany
             @canany(['Read-FavoriteProfessions','Create-Profession','Read-Professions'])
+
+            @endcanany
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-circle"></i>
@@ -312,8 +314,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               </ul>
             </li>
-            @endcanany
-
             @endcanany
             @canany(['Create-Role', 'Read-Roles', 'Create-Permissions','Read-Permissions'])
             {{--Roles And Permissions --}}

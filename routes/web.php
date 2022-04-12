@@ -50,10 +50,7 @@ Route::prefix('cms')->middleware('auth:admin,user')->group(function () {
 });
 
 
-// Route::prefix('cms/admin')->group(function () {
-//     Route::resource('admins', AdminController::class);
-// });
-
+//Mo0hammed sabbahs
 Route::prefix('cms/admin')->middleware(['auth:admin', 'verified'])->group(function () {
     Route::resource('admins', AdminController::class);
     Route::resource('roles', RoleController::class);
@@ -76,7 +73,6 @@ Route::prefix('cms/admin')->middleware(['auth:admin', 'verified'])->group(functi
 Route::prefix('cms/admin')->middleware(['auth:user,admin', 'verified'])->group(function () {
     Route::get('main', [MainPageController::class, 'showMainPage'])->name('cms.dashboard');
 
-    Route::get('professions', [ProfessionController::class, 'showProfession'])->name('cms.profe');
 
     Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::get('change-password', [AuthController::class, 'editPassword'])->name('auth.change-password');

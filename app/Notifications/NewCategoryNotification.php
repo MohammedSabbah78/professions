@@ -60,7 +60,7 @@ class NewCategoryNotification extends Notification
         return [
             //
             'title' => "New Category Added",
-            'message' => "New Category (" . $this->category->title  . ")"  . " Added Via" . " Admin",
+            'message' => "New Category (" . $this->category->title  . ")"  . " Added Via " . auth('admin')->user()->name,
         ];
     }
 }

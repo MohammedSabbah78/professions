@@ -60,7 +60,7 @@ class NewSubCategoryNotification extends Notification
         return [
             //
             'title' => "New SubCategory Added",
-            'message' => "New SubCategory (" . $this->subCategory->title  . ")"  . " Added Via" . " Admin",
+            'message' => "New SubCategory (" . $this->subCategory->title  . ")" . " Added Via " . auth('admin')->user()->name,
         ];
     }
 }

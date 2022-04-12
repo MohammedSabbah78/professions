@@ -60,7 +60,7 @@ class NewAdminNotification extends Notification
         return [
             //
             'title' => "New Admin Added",
-            'message' => "New Admin (" . $this->admin->name  . ")" . " Email : ( {$this->admin->email} )" . " Added Via" . " Admin",
+            'message' => "New Admin (" . $this->admin->name  . ")" . " Email : ( {$this->admin->email} )" . " Added Via " . auth('admin')->user()->name,
         ];
     }
 }

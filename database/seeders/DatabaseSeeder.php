@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -40,6 +41,13 @@ class DatabaseSeeder extends Seeder
 
 
 
+        // Admin::create([
+        //     'name' => 'Super-Admin',
+        //     'email' => 'mohammedsabbah7878@gmail.com',
+        //     'mobile' => '0597905449',
+        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        // ]);
+
         // Permission::create(['name' => 'Create-Role', 'guard_name' => 'admin']);
         // Permission::create(['name' => 'Read-Roles', 'guard_name' => 'admin']);
         // Permission::create(['name' => 'Update-Role', 'guard_name' => 'admin']);
@@ -75,14 +83,14 @@ class DatabaseSeeder extends Seeder
         // Role::create(['name' => 'HR', 'guard_name' => 'admin']);
 
 
-        // -----For User-----
+        // // -----For User-----
         // Permission::create(['name' => 'Create-Profession', 'guard_name' => 'user']);
         // Permission::create(['name' => 'Read-Professions', 'guard_name' => 'user']);
         // Permission::create(['name' => 'Update-Profession', 'guard_name' => 'user']);
         // Permission::create(['name' => 'Delete-Profession', 'guard_name' => 'user']);
 
-        // Permission::create(['name' => 'Create-FavoriteProfession', 'guard_name' => 'admin']);
-        // Permission::create(['name' => 'Read-FavoriteProfessions', 'guard_name' => 'admin']);
-        // Permission::create(['name' => 'Delete-FavoriteProfession', 'guard_name' => 'admin']);
+        // Permission::create(['name' => 'Create-FavoriteProfession', 'guard_name' => 'user']);
+        // Permission::create(['name' => 'Read-FavoriteProfessions', 'guard_name' => 'user']);
+        // Permission::create(['name' => 'Delete-FavoriteProfession', 'guard_name' => 'user']);
     }
 }
